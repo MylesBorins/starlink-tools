@@ -1,0 +1,14 @@
+{
+  "system": {
+    "task-scheduler": {
+      "task": {
+        "check-dhcp": {
+          "executable": {
+            "path": "/config/scripts/reset-dhcp.sh"
+          },
+          "crontab-spec": "*/1 * * * *"
+        }
+      }
+    }
+  }
+}
