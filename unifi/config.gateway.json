@@ -1,4 +1,70 @@
 {
+  "firewall": {
+    "modify": {
+      "LOAD_BALANCE": {
+        "description": "LOAD_BALANCE",
+        "rule": {
+          "2503": {
+            "action": "modify",
+            "modify": {
+              "lb-group": "wan2_failover"
+            },
+            "source": {
+              "address": "192.168.20.0/24"
+            }
+          }
+        }
+      }
+    }
+  },
+  "load-balance": {
+    "group": {
+      "wan2_failover": {
+        "flush-on-active": "disable",
+        "interface": {
+          "eth0": {
+            "failover-only": "''"
+          },
+          "eth2": "''"
+        },
+        "lb-local": "enable",
+        "lb-local-metric-change": "enable"
+      }
+    }
+  },
+  "interfaces": {
+    "pseudo-ethernet": {
+      "peth0": {
+        "address": [
+          "192.168.100.2/24"
+        ],
+        "description": "access to starlink",
+        "link": "eth0"
+      }
+    }
+  },
+  "service": {
+    "nat": {
+      "rule": {
+        "5009": {
+          "description": "starlink",
+          "destination": {
+            "address": "192.168.100.0/24",
+            "group": "''"
+          },
+          "log": "disable",
+          "outbound-interface": "peth0",
+          "outside-address": "''",
+          "protocol": "all",
+          "source": {
+            "address": "192.168.1.0/24",
+            "group": "''"
+          },
+          "type": "masquerade"
+        }
+      }
+    }
+  },
   "system": {
     "task-scheduler": {
       "task": {

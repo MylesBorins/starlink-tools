@@ -1,0 +1,35 @@
+{
+  "firewall": {
+    "modify": {
+      "LOAD_BALANCE": {
+        "description": "LOAD_BALANCE",
+        "rule": {
+          "2503": {
+            "action": "modify",
+            "modify": {
+              "lb-group": "wan2_failover"
+            },
+            "source": {
+              "address": "192.168.20.0/24"
+            }
+          }
+        }
+      }
+    }
+  },
+  "load-balance": {
+    "group": {
+      "wan2_failover": {
+        "flush-on-active": "disable",
+        "interface": {
+          "eth0": {
+            "failover-only": "''"
+          },
+          "eth2": "''"
+        },
+        "lb-local": "enable",
+        "lb-local-metric-change": "enable"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "interfaces": {
+    "pseudo-ethernet": {
+      "peth0": {
+        "address": [
+          "192.168.100.2/24"
+        ],
+        "description": "access to starlink",
+        "link": "eth0"
+      }
+    }
+  },
+  "service": {
+    "nat": {
+      "rule": {
+        "5009": {
+          "description": "starlink",
+          "destination": {
+            "address": "192.168.100.0/24",
+            "group": "''"
+          },
+          "log": "disable",
+          "outbound-interface": "peth0",
+          "outside-address": "''",
+          "protocol": "all",
+          "source": {
+            "address": "192.168.1.0/24",
+            "group": "''"
+          },
+          "type": "masquerade"
+        }
+      }
+    }
+  }
+}
